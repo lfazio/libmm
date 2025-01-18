@@ -3,5 +3,6 @@
 
 libmm_src = [
   'src/alloc.c',
+  'src/slab.c',
   'src/string.c',
 ]

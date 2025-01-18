@@ -9,7 +9,7 @@ project(
 
 subdir('src')
 
-inc = include_directories('include')
+inc = include_directories('include', 'include/freebsd/sys')
 
 install_subdir('include', install_dir: 'include')
 

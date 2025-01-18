@@ -159,11 +159,13 @@ static void _thread_drop(struct _mm_ctx *ctx, size_t size)
  * PUBLIC FUNCTIONS
  * -------------------------------------------------------------------------- */
 
+#define	__malloc_like	__attribute__((__malloc__(__mm_free, 1)))
 void *__mm_malloc(size_t size, const char *file, int line)
 {
 	return __mm_realloc(NULL, size, file, line);
 }
 
+#define	__malloc_like	__attribute__((__malloc__(__mm_free, 1)))
 void *__mm_calloc(size_t nmemb, size_t size, const char *file, int line)
 {
 	void *ptr;
@@ -179,6 +181,7 @@ void __mm_free(void *ptr, const char *file, int line)
 	__mm_realloc(ptr, 0, file, line);
 }
 
+#define	__malloc_like	__attribute__((__malloc__(__mm_free, 1)))
 void *__mm_realloc(void *ptr, size_t size, const char *file, int line)
 {
 	void *new_ptr;

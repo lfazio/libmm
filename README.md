@@ -1,8 +1,10 @@
 # libmm
 
-This lib is intendend to work even on embedde RTOS or baremetal to track memory allocation on the heap.
+This library is intended to work even on embedded RTOS or baremetal projects to track memory allocations on the heap.
 
-## Debug
+This library might also be 
+
+## Build
 
 ```sh
 meson setup builddir
