@@ -38,3 +38,9 @@ test_slab_static = executable('test_slab_static',
   dependencies: [gtest_dep, libmm_dep]
 )
 test('slab_test_static', test_slab_static)
+
+test_slab_arena = executable('test_slab_arena',
+  'test_slab_arena.cpp',
+  dependencies: [gtest_dep, libmm_dep]
+)
+test('slab_test_arena', test_slab_arena)
