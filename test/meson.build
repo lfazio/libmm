@@ -50,3 +50,9 @@ test_rbi = executable('test_rbi',
   dependencies: [gtest_dep, libmm_dep]
 )
 test('rbi_test', test_rbi)
+
+test_rb = executable('test_rb',
+  'test_rb.cpp',
+  dependencies: [gtest_dep, libmm_dep]
+)
+test('rb_test', test_rb)
