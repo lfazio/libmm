@@ -143,6 +143,7 @@ int mm_slab_destroy(struct mm_slab *slab)
 	return 0;
 }
 
+__attribute__((__malloc__(mm_slab_free, 2)))
 void *mm_slab_alloc(struct mm_slab *slab)
 {
 	void *ptr;

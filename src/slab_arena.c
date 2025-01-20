@@ -86,6 +86,7 @@ int mm_slab_arena_destroy(void)
 	return -EAGAIN;
 }
 
+__attribute__((__malloc__(mm_slab_arena_free, 1)))
 void *mm_slab_arena_malloc(size_t size)
 {
 	int i, err;
@@ -118,6 +119,7 @@ void *mm_slab_arena_malloc(size_t size)
 	return ptr;
 }
 
+__attribute__((__malloc__(mm_slab_arena_free, 1)))
 void *mm_slab_arena_calloc(size_t nmemb, size_t size)
 {
 	void *ptr;
