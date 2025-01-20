@@ -7,6 +7,10 @@ project(
   default_options: ['c_std=gnu23', 'cpp_std=c++17', 'default_library=static' ],
 )
 
+if get_option('buildtype').startswith('debug')
+  add_global_arguments('-DDEBUG', language : ['c', 'cpp'])
+endif
+
 subdir('src')
 
 inc = include_directories('include', 'include/freebsd/sys')

@@ -42,8 +42,10 @@
 struct _mt_info {
 	TAILQ_ENTRY(_mt_info) link;
 	uint32_t size;
+#if defined(DEBUG)
 	const char *file;
 	int line;
+#endif /* DEBUG */
 	int tid;
 	uint32_t magic;
 };
@@ -237,8 +239,10 @@ void *__mm_realloc(void *ptr, size_t size, const char *file, int line)
 	info = new_ptr;
 	info->magic = MEMTRACK_MAGIC;
 	info->size = size;
-	info->line = line;
+#if defined(DEBUG)
 	info->file = file;
+	info->line = line;
+#endif /* DEBUG */
 	info->tid = THREAD_GETTID();
 
 	flags = IRQ_SAVE();
@@ -301,12 +305,16 @@ int mm_mt_summary(bool verbose, int (*_puts)(void *ctx, const char *str),
 		TAILQ_FOREACH_SAFE(info, &_ctx.memtrack.chunks, link, next) {
 			snprintf(txt, sizeof(txt),
 				 "\t\t{\n"
+#if defined(DEBUG)
 				 "\t\t\t'file': '%s',\n"
 				 "\t\t\t'line': %d,\n"
+#endif /* DEBUG */
 				 "\t\t\t'thread': [ '%s', %d ]\n"
 				 "\t\t\t'mem': [ %p, %" PRIu32 " ]\n"
 				 "\t\t},\n",
+#if defined(DEBUG)
 				 info->file, info->line,
+#endif /* DEBUG */
 				 info->tid == -1 ? "main" :
 						   THREAD_GET_NAME(info->tid),
 				 info->tid, (void *)MT_GET_DATA(info),
@@ -367,12 +375,16 @@ int mm_mt_summary_for_thread(int tid, const char *thread_name, bool verbose,
 
 				snprintf(txt, sizeof(txt),
 					 "\t\t{\n"
+#if defined(DEBUG)
 					 "\t\t\t'file': '%s',\n"
 					 "\t\t\t'line': %d,\n"
+#endif /* DEBUG */
 					 "\t\t\t'thread': [ '%s', %d ]\n"
 					 "\t\t\t'mem': [ %p, %" PRIu32 " ]\n"
 					 "\t\t},\n",
+#if defined(DEBUG)
 					 info->file, info->line,
+#endif /* DEBUG */
 					 info->tid == -1 ?
 						 "main" :
 						 THREAD_GET_NAME(info->tid),

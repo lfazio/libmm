@@ -27,27 +27,42 @@ struct mm_malloc_info {
  * @brief Allocates @a size bytes.
  * @param size Size in bytes
  */
+#if defined(DEBUG)
 #define mm_malloc(size) __mm_malloc((size), __FILE__, __LINE__)
-
+#else
+#define mm_malloc(size) __mm_malloc((size), "", 0)
+#endif
 /**
  * @brief Free @a ptr.
  * @param ptr Pointer to free
  */
+#if defined(DEBUG)
 #define mm_free(ptr) __mm_free((ptr), __FILE__, __LINE__)
+#else
+#define mm_free(ptr) __mm_free((ptr), "", 0)
+#endif
 
 /**
  * @brief Allocates @a x bytes on @a nmemb consecutive blocks.
  * @param nmemb The number of consecutive blocks required
  * @param size The size in bytes
  */
+#if defined(DEBUG)
 #define mm_calloc(nmemb, size) __mm_calloc((nmemb), (size), __FILE__, __LINE__)
+#else
+#define mm_calloc(nmemb, size) __mm_calloc((nmemb), (size), "", 0)
+#endif
 
 /**
  * @brief Reallocates @a x bytes to @a ptr
  * @param ptr The pointer that needs reallocation
  * @param size The new size in bytes
  */
+#if defined(DEBUG)
 #define mm_realloc(ptr, size) __mm_realloc((ptr), (size), __FILE__, __LINE__)
+#else
+#define mm_realloc(ptr, size) __mm_realloc((ptr), (size), "", 0)
+#endif
 
 /* --------------------------------------------------------------------------
  * PUBLIC FUNCTIONS
