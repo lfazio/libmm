@@ -7,6 +7,10 @@
 extern "C" {
 #endif /* __cplusplus */
 
+#ifndef ISPOWEROF2
+#define ISPOWEROF2(num)	(((num) & ((num) - 1)) == 0)
+#endif /* !ISPOWEROF2 */
+
 #ifndef ROUNDUP
 #define ROUNDUP(val, align)	\
 	((((val) / (align))*(align)) + (((val) % (align)) ? (align) : 0))

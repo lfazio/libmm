@@ -44,3 +44,9 @@ test_slab_arena = executable('test_slab_arena',
   dependencies: [gtest_dep, libmm_dep]
 )
 test('slab_test_arena', test_slab_arena)
+
+test_rbi = executable('test_rbi',
+  'test_rbi.cpp',
+  dependencies: [gtest_dep, libmm_dep]
+)
+test('rbi_test', test_rbi)
