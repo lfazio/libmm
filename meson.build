@@ -4,7 +4,7 @@
 project(
   'libmm',
   ['c', 'cpp'],
-  default_options: ['c_std=gnu23', 'cpp_std=c++17', 'default_library=static' ],
+  default_options: ['c_std=gnu2x', 'cpp_std=c++17', 'default_library=static' ],
 )
 
 if get_option('buildtype').startswith('debug')

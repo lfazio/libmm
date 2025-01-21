@@ -1,8 +1,8 @@
 # libmm
 
-This library is intended to work even on embedded RTOS or baremetal projects to track memory allocations on the heap.
+[![libmm-ci](https://github.com/lfazio/libmm/actions/workflows/ci.yaml/badge.svg)](https://github.com/lfazio/libmm/actions/workflows/ci.yaml)
 
-This library might also be 
+This library is intended to work even on embedded RTOS or baremetal projects to track memory allocations on the heap.
 
 ## Build
 
