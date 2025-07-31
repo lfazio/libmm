@@ -4,6 +4,10 @@
 #pragma once
 
 /**
+ * @ingroup mm_components
+ */
+
+/**
  * A slab allocator is useful to manage memory fragmentation. It can stick the
  * fragmentationto the slab pools, which let large chunk of contiguous range
  * available.

@@ -3,6 +3,10 @@
 
 #pragma once
 
+/**
+ * @ingroup mm_components
+ */
+
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
@@ -13,10 +17,13 @@ extern "C" {
 
 #include <stddef.h>
 
+/**
+ * @brief Mallinfo equivalent structure
+ */
 struct mm_malloc_info {
-	size_t uallocated; /* Total allocated space (bytes) */
-	size_t umaxallocated; /* Total allocated space (bytes) */
-	size_t ucount; /* Total number of allocations */
+	size_t uallocated; /**< Total allocated space (bytes) */
+	size_t umaxallocated; /**< Total allocated space (bytes) */
+	size_t ucount; /**< Total number of allocations */
 };
 
 /* --------------------------------------------------------------------------
@@ -24,15 +31,21 @@ struct mm_malloc_info {
  * -------------------------------------------------------------------------- */
 
 /**
+ * @def mm_malloc(size)
  * @brief Allocates @a size bytes.
- * @param size Size in bytes
+ *
+ * @param[in] size Size in bytes
+ *
+ * @return A pointer to the allocated memory
  */
 #if defined(DEBUG)
 #define mm_malloc(size) __mm_malloc((size), __FILE__, __LINE__)
 #else
 #define mm_malloc(size) __mm_malloc((size), "", 0)
 #endif
+
 /**
+ * @def mm_free(ptr)
  * @brief Free @a ptr.
  * @param ptr Pointer to free
  */

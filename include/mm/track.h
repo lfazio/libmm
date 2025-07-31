@@ -3,6 +3,10 @@
 
 #pragma once
 
+/**
+ * @ingroup mm_components
+ */
+
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
