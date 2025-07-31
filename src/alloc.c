@@ -200,8 +200,7 @@ void *__mm_realloc(void *ptr, size_t size, const char *file, int line)
 	if (ptr && _ctx.memtrack.enable) {
 		info = MT_GET_METADATA(ptr);
 		if (info->magic == MEMTRACK_MAGIC_FREE)
-			PANIC("ptr=%p: double free detected\n", file, line,
-			      ptr);
+			PANIC("ptr=%p: double free detected\n", file, line, ptr);
 
 		if (info->magic == MEMTRACK_MAGIC) {
 			flags = IRQ_SAVE();
@@ -366,7 +365,10 @@ int mm_mt_summary_for_thread(int tid, const char *thread_name, bool verbose,
 			 ts->max_allocated);
 		_puts(ctx, txt);
 
-		if (verbose && ts->allocated) {
+		if (!verbose)
+			continue;
+
+		if (ts->allocated) {
 			_puts(ctx, "\t'allocations': [\n");
 			TAILQ_FOREACH_SAFE(info, &_ctx.memtrack.chunks, link,
 					   next) {

@@ -138,6 +138,8 @@ TEST_F(AllocTest, ReallocFreeMemoryTrack)
 }
 
 int _puts(void *ctx, const char *str) {
+	if (ctx == NULL)
+		return puts(str);
 	std::ostringstream *oss = static_cast<std::ostringstream*>(ctx);
 	(*oss) << str;
 	return strlen(str);
@@ -196,6 +198,18 @@ TEST_F(AllocTest, MemTrackSummaryVerbose)
 }
 
 // Test case for mm_mt_summary
+TEST_F(AllocTest, MemTrackDisabledSummary)
+{
+	struct mm_malloc_info info;
+
+	mm_mt_deactivate();
+	EXPECT_EQ(mm_mt_summary(true, _puts, NULL), -ENOSYS);
+	mm_mt_activate();
+
+	EXPECT_EQ(mm_mt_summary(false, NULL, NULL), -EINVAL);
+}
+
+// Test case for mm_mt_summary
 TEST_F(AllocTest, MemTrackSummaryForThread)
 {
 	struct mm_malloc_info info;
@@ -219,6 +233,20 @@ TEST_F(AllocTest, MemTrackSummaryForThread)
 	std::string output2 = oss2.str();
 	EXPECT_EQ(output2.rfind("{\n\t'thread': [ 'test',"), 0);
 	puts(output2.c_str());
+
+	mm_mt_summary_for_thread(gettid(), NULL, false, _puts, NULL);
+	std::ostringstream oss3;
+	mm_mt_summary_for_thread(gettid(), NULL, false, _puts, &oss2);
+	std::string output3 = oss3.str();
+	EXPECT_NE(output3.rfind("{\t\t'thread': [ '<noname>',"), 0);
+	puts(output3.c_str());
+
+	mm_mt_deactivate();
+	EXPECT_EQ(mm_mt_summary_for_thread(gettid(), NULL, false, _puts, NULL), -ENOSYS);
+	mm_mt_activate();
+
+	EXPECT_EQ(mm_mt_summary_for_thread(-2, NULL, false, _puts, NULL), -EINVAL);
+	EXPECT_EQ(mm_mt_summary(false, NULL, NULL), -EINVAL);
 }
 
 // Test case for mm_mt_summary
