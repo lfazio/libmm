@@ -27,6 +27,12 @@ test_slab = executable('test_slab',
 )
 test('slab_test', test_slab)
 
+test_slab_noalign = executable('test_slab_noalign',
+  'test_slab_noalign.cpp',
+  dependencies: [gtest_dep, libmm_dep]
+)
+test('slab_test_noalign', test_slab_noalign)
+
 test_slab_invalid = executable('test_slab_invalid',
   'test_slab_invalid.cpp',
   dependencies: [gtest_dep, libmm_dep]
