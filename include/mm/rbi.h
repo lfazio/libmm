@@ -3,6 +3,10 @@
 
 #pragma once
 
+/**
+ * @ingroup mm_components
+ */
+
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
@@ -48,7 +52,7 @@ int rbi_init(struct rbi *rbi, size_t size);
  * @return Number of available elements
  * @return  -EINVAL if @a rbi is NULL
  */
-ssize_t rbi_available(struct rbi *rbi);
+ssize_t rbi_available(const struct rbi *rbi);
 
 /**
  * @brief Check if the ring buffer is empty
@@ -56,7 +60,7 @@ ssize_t rbi_available(struct rbi *rbi);
  * @param rbi Pointer to the ring buffer index structure
  * @return true if the ring buffer is empty or if @a rbi is NULL, false otherwise
  */
-bool rbi_is_empty(struct rbi *rbi);
+bool rbi_is_empty(const struct rbi *rbi);
 
 /**
  * @brief Check if the ring buffer is full
@@ -64,7 +68,7 @@ bool rbi_is_empty(struct rbi *rbi);
  * @param rbi Pointer to the ring buffer index structure
  * @return true if the ring buffer is full or if rbi is NULL, false otherwise
  */
-bool rbi_is_full(struct rbi *rbi);
+bool rbi_is_full(const struct rbi *rbi);
 
 /**
  * @brief Get an element from the ring buffer
@@ -84,7 +88,7 @@ ssize_t rbi_get(struct rbi *rbi);
  * @return -EINVAL if @a rbi is NULL
  * @return -ENODATA if the ring buffer is empty
  */
-ssize_t rbi_peek(struct rbi *rbi);
+ssize_t rbi_peek(const struct rbi *rbi);
 
 /**
  * @brief Put an element into the ring buffer
@@ -103,7 +107,7 @@ ssize_t rbi_put(struct rbi *rbi);
  * @return The capacity of the ring buffer,
  * @return -EINVAL if @a rbi is NULL
  */
-ssize_t rbi_capacity(struct rbi *rbi);
+ssize_t rbi_capacity(const struct rbi *rbi);
 
 #ifdef __cplusplus
 }

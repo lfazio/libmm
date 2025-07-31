@@ -33,7 +33,7 @@ int rbi_init(struct rbi *rbi, size_t size)
 	return 0;
 }
 
-ssize_t rbi_available(struct rbi *rbi)
+ssize_t rbi_available(const struct rbi *rbi)
 {
 	if (!rbi)
 		return -EINVAL;
@@ -41,7 +41,7 @@ ssize_t rbi_available(struct rbi *rbi)
 	return rbi->tail - rbi->head;
 }
 
-bool rbi_is_empty(struct rbi *rbi)
+bool rbi_is_empty(const struct rbi *rbi)
 {
 	if (!rbi)
 		return true;
@@ -49,7 +49,7 @@ bool rbi_is_empty(struct rbi *rbi)
 	return rbi->tail - rbi->head == 0;
 }
 
-bool rbi_is_full(struct rbi *rbi)
+bool rbi_is_full(const struct rbi *rbi)
 {
 	if (!rbi)
 		return true;
@@ -73,7 +73,7 @@ ssize_t rbi_get(struct rbi *rbi)
 	return head & rbi->mask;
 }
 
-ssize_t rbi_peek(struct rbi *rbi)
+ssize_t rbi_peek(const struct rbi *rbi)
 {
 	if (!rbi)
 		return -EINVAL;
@@ -100,7 +100,7 @@ ssize_t rbi_put(struct rbi *rbi)
 	return tail & rbi->mask;
 }
 
-ssize_t rbi_capacity(struct rbi *rbi)
+ssize_t rbi_capacity(const struct rbi *rbi)
 {
 	if (!rbi)
 		return -EINVAL;

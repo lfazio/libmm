@@ -37,7 +37,7 @@ int rb_init(struct rb *rb, void *array, size_t esize, size_t ecount)
 	return 0;
 }
 
-bool rb_put(struct rb *rb, void *element)
+bool rb_put(struct rb *rb, const void *element)
 {
 	uint8_t *dest;
 	size_t pos;
@@ -64,7 +64,7 @@ bool rb_get(struct rb *rb, void *element)
 		return NULL;
 
 	if (rbi_is_empty(&rb->rbi))
-		return NULL;
+		return false;
 
 	pos = rbi_get(&rb->rbi);
 	src = (uint8_t *)rb->array + pos * rb->esize;
@@ -73,7 +73,7 @@ bool rb_get(struct rb *rb, void *element)
 	return true;
 }
 
-void *rb_peek(struct rb *rb)
+void *rb_peek(const struct rb *rb)
 {
 	size_t pos;
 
@@ -87,7 +87,7 @@ void *rb_peek(struct rb *rb)
 	return (uint8_t *)rb->array + pos * rb->esize;
 }
 
-ssize_t rb_available(struct rb *rb)
+ssize_t rb_available(const struct rb *rb)
 {
 	if (!rb)
 		return -EINVAL;
@@ -95,7 +95,7 @@ ssize_t rb_available(struct rb *rb)
 	return rbi_available(&rb->rbi);
 }
 
-bool rb_is_empty(struct rb *rb)
+bool rb_is_empty(const struct rb *rb)
 {
 	if (!rb)
 		return true;
@@ -103,7 +103,7 @@ bool rb_is_empty(struct rb *rb)
 	return rbi_is_empty(&rb->rbi);
 }
 
-bool rb_is_full(struct rb *rb)
+bool rb_is_full(const struct rb *rb)
 {
 	if (!rb)
 		return true;
@@ -111,7 +111,7 @@ bool rb_is_full(struct rb *rb)
 	return rbi_is_full(&rb->rbi);
 }
 
-ssize_t rb_capacity(struct rb *rb)
+ssize_t rb_capacity(const struct rb *rb)
 {
 	if (!rb)
 		return -EINVAL;

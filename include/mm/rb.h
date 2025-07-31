@@ -3,6 +3,10 @@
 
 #pragma once
 
+/**
+ * @ingroup mm_components
+ */
+
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
@@ -38,10 +42,11 @@ struct rb {
 /**
  * @brief Initialize a ring buffer
  * 
- * @param rb Pointer to the ring buffer structure
- * @param array Pointer to the array to be used as the ring buffer
- * @param esize Size of each element in the array
- * @param ecount Total number of elements in the array, must be a power of 2
+ * @param[in,out] rb Pointer to the ring buffer structure
+ * @param[in] array Pointer to the array to be used as the ring buffer
+ * @param[in] esize Size of each element in the array
+ * @param[in] ecount Total number of elements in the array, must be a power of 2
+ *
  * @return 0 on success
  * @return -EINVAL if rb or array is NULL
  * @return -ENOTSUP if ecount is not a power of 2
@@ -51,18 +56,20 @@ int rb_init(struct rb *rb, void *array, size_t esize, size_t ecount);
 /**
  * @brief Put an element into the ring buffer
  * 
- * @param rb Pointer to the ring buffer structure
- * @param element Pointer to the element to put into the ring buffer
+ * @param[in,out] rb Pointer to the ring buffer structure
+ * @param[in] element Pointer to the element to put into the ring buffer
+ *
  * @return true on success
  * @return false if the ring buffer is full or if rb is NULL
  */
-bool rb_put(struct rb *rb, void *element);
+bool rb_put(struct rb *rb, const void *element);
 
 /**
  * @brief Get an element from the ring buffer
  * 
- * @param rb Pointer to the ring buffer structure
- * @param element Pointer to the element to get from the ring buffer
+ * @param[in,out] rb Pointer to the ring buffer structure
+ * @param[out] element Pointer to the element to get from the ring buffer
+ *
  * @return true on success
  * @return false if the ring buffer is empty or if rb is NULL
  */
@@ -71,42 +78,52 @@ bool rb_get(struct rb *rb, void *element);
 /**
  * @brief Peek at the next element in the ring buffer without removing it
  * 
- * @param rb Pointer to the ring buffer structure
- * @return Pointer to the element, or NULL if the ring buffer is empty or if rb is NULL
+ * @param[in] rb Pointer to the ring buffer structure
+ *
+ * @return Pointer to the element
+ * @return NULL if the ring buffer is empty or if rb is NULL
  */
-void *rb_peek(struct rb *rb);
+void *rb_peek(const struct rb *rb);
 
 /**
  * @brief Get the number of available elements in the ring buffer
  * 
- * @param rb Pointer to the ring buffer structure
- * @return Number of available elements, or -EINVAL if rb is NULL
+ * @param[in] rb Pointer to the ring buffer structure
+ *
+ * @return Number of available elements
+ * @return -EINVAL if rb is NULL
  */
-ssize_t rb_available(struct rb *rb);
+ssize_t rb_available(const struct rb *rb);
 
 /**
  * @brief Check if the ring buffer is empty
  * 
- * @param rb Pointer to the ring buffer structure
- * @return true if the ring buffer is empty or if rb is NULL, false otherwise
+ * @param[in] rb Pointer to the ring buffer structure
+ * 
+ * @return true if the ring buffer is empty or if rb is NULL
+ * @return false otherwise
  */
-bool rb_is_empty(struct rb *rb);
+bool rb_is_empty(const struct rb *rb);
 
 /**
  * @brief Check if the ring buffer is full
  * 
- * @param rb Pointer to the ring buffer structure
- * @return true if the ring buffer is full or if rb is NULL, false otherwise
+ * @param[in] rb Pointer to the ring buffer structure
+ *
+ * @return true if the ring buffer is full or if rb is NULL
+ * @return false otherwise
  */
-bool rb_is_full(struct rb *rb);
+bool rb_is_full(const struct rb *rb);
 
 /**
  * @brief Get the capacity of the ring buffer
  * 
- * @param rb Pointer to the ring buffer structure
- * @return The capacity of the ring buffer, or -EINVAL if rb is NULL
+ * @param[in] rb Pointer to the ring buffer structure
+ *
+ * @return The capacity of the ring buffer
+ * @return -EINVAL if rb is NULL
  */
-ssize_t rb_capacity(struct rb *rb);
+ssize_t rb_capacity(const struct rb *rb);
 
 #ifdef __cplusplus
 }
