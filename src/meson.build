@@ -3,6 +3,7 @@
 
 libmm_src = [
   'src/alloc.c',
+  'src/mock_mmio.c',
   'src/rb.c',
   'src/rbi.c',
   'src/slab.c',

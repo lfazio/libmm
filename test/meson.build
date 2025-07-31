@@ -15,6 +15,12 @@ test_alloc_track = executable('test_alloc_track',
 )
 test('alloc_track_test', test_alloc_track)
 
+test_alloc = executable('test_mmio',
+  'test_mmio.cpp',
+  dependencies: [gtest_dep, libmm_dep]
+)
+test('alloc_test', test_alloc)
+
 test_string = executable('test_string',
   'test_string.cpp',
   dependencies: [gtest_dep, libmm_dep]
