@@ -200,8 +200,6 @@ TEST_F(AllocTest, MemTrackSummaryVerbose)
 // Test case for mm_mt_summary
 TEST_F(AllocTest, MemTrackDisabledSummary)
 {
-	struct mm_malloc_info info;
-
 	mm_mt_deactivate();
 	EXPECT_EQ(mm_mt_summary(true, _puts, NULL), -ENOSYS);
 	mm_mt_activate();
