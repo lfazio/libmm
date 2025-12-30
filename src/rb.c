@@ -61,7 +61,7 @@ bool rb_get(struct rb *rb, void *element)
 	size_t pos;
 
 	if (!rb)
-		return NULL;
+		return false;
 
 	if (rbi_is_empty(&rb->rbi))
 		return false;
